@@ -1,59 +1,46 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import { Box, Text } from '@chakra-ui/react';
+import NextLink from 'next/link';
+import { chakra } from '@chakra-ui/react';
 
 export default function Home() {
+  const Quoted = ({ children }) => (
+    <Box _before={{ content: `"「"` }} _after={{ content: `"」"` }}>
+      {children}
+    </Box>
+  );
+
+  const ShadowBox = (props) => <Box rounded="base" shadow="md" {...props} />;
+  // const ShadowBox : FC<BoxProps> = (props) => <Box rounded="base" shadow="md" {...props} />
+  // const CBox = (props) => <Box as={props} />;
+  const NumberingHoverLink = ({ number, ...linkProps }) => {
+    return (
+      <Link
+        _hover={{ bg: 'teal.200' }}
+        bg={number % 2 ? 'gray.100' : 'white'}
+        p={2}
+        {...linkProps}
+      />
+    );
+  };
+
+  const Header = chakra('header');
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a href="https://next.new" target="_blank" rel="noopener noreferrer">
-          Created with&nbsp;<b>next.new</b>&nbsp;⚡️
-        </a>
-      </footer>
-    </div>
+    <>
+      <Header>chakra</Header>
+      <Box as="header">Boxだけどasでheaderに変更</Box>
+      <Box>
+        <Text>テキスト</Text>
+        <Text _hover={{ fontWeight: 'bold' }}>Hover Me</Text>
+        <Quoted>かなちゃん</Quoted>
+      </Box>
+      <Box bg={['red.200', 'yellow.200', 'green.200', 'blue.200']}>Hello</Box>
+      {/* 480px以上はgreen */}
+      <Box bg={{ base: 'red.200', sm: 'green.200' }}>Hello</Box>
+      {/* <NextLink href="https://google.com" passHref>
+        <Button as="a">as=a button</Button>
+      </NextLink> */}
+      <ShadowBox bg={{ base: 'red.200', sm: 'green.200' }}>hello</ShadowBox>
+    </>
   );
 }
